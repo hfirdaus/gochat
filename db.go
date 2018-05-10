@@ -3,44 +3,37 @@ package main
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"fmt"
 	"time"
 )
 
 var currentId int = 0
 
 func init() {
-	db, err := gorm.Open("postgres", "host=172.17.0.2 port=5432 user=gorm dbname=todo password=gorm")
-	if err != nil {
-		panic("failed to connect to database")
-	}
+	db := openTodoDb()
 	defer db.Close()
+
+	fmt.Println(db.HasTable(&Todo{}))
 
 	db.AutoMigrate(&Todo{})
 
-	// Initial todos
-	Insert(db, Todo{Name: "Thing 1", Completed:false, Due: time.Now()})
-	Insert(db, Todo{Name: "Thing 2", Completed:true, Due: time.Now()})
+	Insert(db, Todo{Name: "Thing 1", Completed: false, Due: time.Now()})
+	Insert(db, Todo{Name: "Thing 2", Completed: true, Due: time.Now()})
+}
+
+func openTodoDb() *gorm.DB {
+	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=postgres password=postgres sslmode=disable")
+	if err != nil {
+		fmt.Println(err)
+	}
+	return db
 }
 
 func ModifyDatabase(f Modify, t Todo) Todo {
-	db, err := gorm.Open("postgres", "host=172.17.0.2 port=5432 user=gorm dbname=todo password=gorm")
-	if err != nil {
-		panic("failed to connect to database")
-	}
+	db := openTodoDb()
 	defer db.Close()
-
 	f(db, t)
 	return t
-}
-
-func SearchDatabase(f Find, Id int) {
-	db, err := gorm.Open("postgres", "host=172.17.0.2 port=5432 user=gorm dbname=todo password=gorm")
-	if err != nil {
-		panic("failed to connect to database")
-	}
-	defer db.Close()
-
-	f(db, Id)
 }
 
 type Modify func(db *gorm.DB, t Todo)
@@ -67,4 +60,11 @@ func FindById(db *gorm.DB, Id int) Todo {
 	var todo Todo
 	db.First(todo, Id)
 	return todo
+}
+
+func FindAllTodos() []Todo {
+	var todos []Todo
+	db := openTodoDb()
+	db.Find(&todos)
+	return todos
 }
