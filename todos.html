@@ -16,21 +16,60 @@
         #task-input {
             width: 50%;
         }
+        #list {
+            width: 500px;
+            background: aliceblue;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        #list ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #list ul li {
+            padding: 5px;
+            background: white;
+            margin-bottom: 10px;
+        }
+        .complete {
+            float: right;
+            color: lightcoral;
+        }
+        .completed {
+            color: lightgrey;
+        }
     </style>
+    <script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
 <div id="add-task">
 <form action="/todos" method="POST">
-    <input id="task-input" name="name" type="text" value="Enter new task here...">
-    <input name="due" type="date" value="dd/mm/yyyy">
+    <input id="task-input" name="name" type="text" placeholder="Enter new task here...">
+    <input name="due-date" type="date" placeholder="dd/mm/yyyy">
     <input value="Add this task" type="submit">
 </form>
 </div>
 
-<div>
-    <ul>
-
+<div id="list">
+    <ul class="listul">
+        {{range .Todos}}
+            {{if .Completed}} {{else}} <li>{{.Name}} {{.Due}} <a class="complete"><i class="fas fa-check"></i>️</a></li>{{end}}
+        {{end}}
+    </ul>
+    <ul class="listul">
+        {{range .Todos}}
+            {{if .Completed}} <li class="completed">{{.Name}} {{.Due}} </li>{{end}}
+        {{end}}
     </ul>
 </div>
+
+<script language="JavaScript">
+    var lists = document.getElementsByClassName("listul");
+    for (var i = 0; i < lists.length; i++) {
+        Sortable.create(lists[i]);
+    }
+</script>
 </body>
 </html>

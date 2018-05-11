@@ -11,4 +11,5 @@ type Todo struct {
 
 type Page struct {
 	Title	string
+	Todos	[]Todo
 }

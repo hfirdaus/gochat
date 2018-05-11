@@ -8,6 +8,7 @@ import (
 	"io"
 	"github.com/gorilla/mux"
 	"html/template"
+	"time"
 )
 
 // https://golang.org/doc/articles/wiki/
@@ -17,9 +18,7 @@ import (
 func Index(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("home.html")
 	if err != nil {
-		fmt.Print(err)
-		fmt.Fprintf(w,"An error has occurred.")
-		return
+		panic(err)
 	}
 	t.Execute(w, Page{Title: "Home"})
 
@@ -28,30 +27,9 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("todos.html")
 	if err != nil {
-		fmt.Print(err)
-		fmt.Fprintf(w,"An error has occurred.")
-		return
+		panic(err)
 	}
-	t.Execute(w, Page{Title: "Todo List"})
-
-	//if Username == "" {
-	//	r.ParseForm()
-	//	Username = r.FormValue("username")
-	//}
-	//fmt.Fprintf(w, "<h1>Hi %s!</h1>", Username)
-	//
-	//fmt.Fprintf(w, "<h1>Add a todo</h1>"+
-	//	"<form action=\"/todos\" method=\"POST\">"+
-	//	"<textarea name=\"name\"></textarea><br>"+
-	//	"<input type=\"submit\" value=\"Save\">"+
-	//	"</form>")
-	//todos := FindAllTodos()
-	//
-	//fmt.Fprintf(w,"<ul>")
-	//for i := 0; i < len(todos); i++ {
-	//	fmt.Fprintf(w,"<li>%s</li>", todos[i].Name)
-	//}
-	//fmt.Fprintf(w,"</ul>")
+	t.Execute(w, Page{Title: "Todo List", Todos: FindAllTodos()})
 }
 
 func TodoShow(w http.ResponseWriter, r *http.Request) {
@@ -87,7 +65,10 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 
 func TodoSave(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	fmt.Printf("NAME => %s\n", r.FormValue("name"))
-	InsertTodo(Todo{Name: r.FormValue("name")})
+	time, err := time.Parse(time.RFC3339, r.FormValue("due-date") + "T00:00:00Z")
+	if err != nil {
+		panic(err)
+	}
+	InsertTodo(Todo{Name: r.FormValue("name"), Due: time, Completed: false})
 	TodoIndex(w, r)
 }
