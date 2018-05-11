@@ -9,6 +9,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// https://golang.org/doc/articles/wiki/
+
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "<h1>Add a todo</h1>"+
 		"<form action=\"/\" method=\"POST\">"+
