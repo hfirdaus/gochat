@@ -4,16 +4,21 @@ import (
 	"net/http"
 	"fmt"
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"io/ioutil"
 	"io"
+	"github.com/gorilla/mux"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Welcome!")
+	fmt.Fprintf(w, "<h1>Add a todo</h1>"+
+		"<form action=\"/\" method=\"POST\">"+
+		"<textarea name=\"name\"></textarea><br>"+
+		"<input type=\"submit\" value=\"Save\">"+
+		"</form>")
 }
 
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(FindAllTodos()); err != nil {
@@ -24,7 +29,7 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 func TodoShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
-	fmt.Fprintln(w, "Todo show:", todoId)
+	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", todoId, todoId)
 }
 
 func TodoCreate(w http.ResponseWriter, r *http.Request) {
@@ -50,4 +55,10 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(t); err != nil {
 		panic(err)
 	}
+}
+
+func TodoSave(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	fmt.Printf("NAME => %s\n", r.FormValue("name"))
+	InsertTodo(Todo{Name: r.FormValue("name")})
 }

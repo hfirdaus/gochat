@@ -7,16 +7,17 @@ import (
 	"time"
 )
 
+// Reference: https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb
+
 func init() {
 	db := openTodoDb()
 	defer db.Close()
 
 	if !db.HasTable(&Todo{}) {
 		db.AutoMigrate(&Todo{})
+		InsertTodo(Todo{Name: "Thing 1", Completed: false, Due: time.Now()})
+		InsertTodo(Todo{Name: "Thing 2", Completed: true, Due: time.Now()})
 	}
-	InsertTodo(Todo{Name: "Thing 1", Completed: false, Due: time.Now()})
-	InsertTodo(Todo{Name: "Thing 2", Completed: true, Due: time.Now()})
-
 }
 
 func openTodoDb() *gorm.DB {
