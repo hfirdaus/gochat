@@ -23,7 +23,7 @@ var routes = Routes{
 	Route{
 		"TodoSave",
 		"POST",
-		"/",
+		"/todos",
 		TodoSave,
 	},
 	Route{
@@ -41,7 +41,7 @@ var routes = Routes{
 	Route{
 		"TodoCreate",
 		"POST",
-		"/todos",
+		"/",
 		TodoCreate,
 	},
 }

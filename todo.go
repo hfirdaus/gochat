@@ -9,4 +9,6 @@ type Todo struct {
 	Due       time.Time `json:"due"`
 }
 
-type Todos []Todo
+type Page struct {
+	Title	string
+}

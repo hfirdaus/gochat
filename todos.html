@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Title}}</title>
+    <style type="text/css">
+        #add-task {
+            background-color: aliceblue;
+            padding: 10px;
+            width: inherit;
+            text-align: center;
+        }
+        body {
+            width: 500px;
+        }
+        #task-input {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="add-task">
+<form action="/todos" method="POST">
+    <input id="task-input" name="name" type="text" value="Enter new task here...">
+    <input name="due" type="date" value="dd/mm/yyyy">
+    <input value="Add this task" type="submit">
+</form>
+</div>
+
+<div>
+    <ul>
+
+    </ul>
+</div>
+</body>
+</html>
