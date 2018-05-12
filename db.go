@@ -31,16 +31,27 @@ func openTodoDb() *gorm.DB {
 func InsertTodo(t Todo) Todo {
 	db := openTodoDb()
 	defer db.Close()
-	t.Id = time.Now().Nanosecond()
+	t.ID = time.Now().Nanosecond()
 	db.Create(&t)
 	return t
 }
 
-func DeleteTodo(t Todo) {
+func DeleteTodoById(Id int) {
+	var todo Todo
 	db := openTodoDb()
 	defer db.Close()
-	db.Delete(t)
+	db.First(&todo, Id)
+	db.Delete(todo)
 }
+
+func ToggleTodoCompletedValue(Id int) {
+	var todo Todo
+	db := openTodoDb()
+	defer db.Close()
+	db.First(&todo, Id)
+	db.Model(todo).Update("Completed", !todo.Completed)
+}
+
 
 func UpdateTodo(t Todo) {
 	db := openTodoDb()

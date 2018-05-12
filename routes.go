@@ -44,4 +44,17 @@ var routes = Routes{
 		"/",
 		TodoCreate,
 	},
+	Route{
+		"TodoComplete",
+		"POST",
+		"/complete",
+		TodoComplete,
+	},
+	Route{
+		"TodoDelete",
+		"POST",
+		"/delete",
+		TodoDelete,
+	},
+
 }

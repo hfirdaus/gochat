@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"html/template"
 	"time"
+	"strconv"
 )
 
 // https://golang.org/doc/articles/wiki/
@@ -71,4 +72,24 @@ func TodoSave(w http.ResponseWriter, r *http.Request) {
 	}
 	InsertTodo(Todo{Name: r.FormValue("name"), Due: time, Completed: false})
 	TodoIndex(w, r)
+}
+
+func TodoComplete(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id, err := strconv.Atoi(r.FormValue("id"))
+	fmt.Print(id)
+	if err != nil {
+		panic(err)
+	}
+	ToggleTodoCompletedValue(id)
+}
+
+func TodoDelete(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id, err := strconv.Atoi(r.FormValue("id"))
+	fmt.Print(id)
+	if err != nil {
+		panic(err)
+	}
+	DeleteTodoById(id)
 }

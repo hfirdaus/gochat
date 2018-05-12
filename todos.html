@@ -32,12 +32,12 @@
             background: white;
             margin-bottom: 10px;
         }
-        .complete {
-            float: right;
-            color: lightcoral;
-        }
         .completed {
             color: lightgrey;
+        }
+        .form-button {
+            display: inline;
+            float: right;
         }
     </style>
     <script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
@@ -55,12 +55,31 @@
 <div id="list">
     <ul class="listul">
         {{range .Todos}}
-            {{if .Completed}} {{else}} <li>{{.Name}} {{.Due}} <a class="complete"><i class="fas fa-check"></i>️</a></li>{{end}}
+            {{if .Completed}}
+            {{else}}
+                <li>{{.Name}} {{.Due}}
+                    <form class="form-button" method="POST" action="/complete">
+                        <input type="hidden" name="id" value={{.ID}}>
+                        <button type="submit"><i class="fas fa-check"></i></button>
+                    </form>
+                    <form class="form-button" method="POST" action="/delete">
+                        <input type="hidden" name="id" value={{.ID}}>
+                        <button type="submit"><i class="fas fa-times"></i></button>
+                    </form>
+                </li>
+            {{end}}
         {{end}}
     </ul>
     <ul class="listul">
         {{range .Todos}}
-            {{if .Completed}} <li class="completed">{{.Name}} {{.Due}} </li>{{end}}
+            {{if .Completed}}
+                <li class="completed">{{.Name}} {{.Due}}
+                    <form class="form-button" method="POST" action="/delete">
+                        <input type="hidden" name="id" value={{.ID}}>
+                        <button type="submit"><i class="fas fa-times"></i></button>
+                    </form>                                                        
+                </li>
+            {{end}}
         {{end}}
     </ul>
 </div>
