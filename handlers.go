@@ -38,11 +38,17 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	todos := FindAllTodos()
 	todoDisplays := make([]TodoDisplay, len(todos))
 	for i := 0; i < len(todos); i++ {
-		dueDate := todos[i].Due.Format("Mon Jan 2")
-		todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
-										ID: todos[i].ID,
-										Completed: todos[i].Completed,
-										Due: dueDate}
+		if todos[i].Due.IsZero() {
+			todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
+				ID: todos[i].ID,
+				Completed: todos[i].Completed}
+		} else {
+			dueDate := todos[i].Due.Format("Mon Jan 2")
+			todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
+				ID: todos[i].ID,
+				Completed: todos[i].Completed,
+				Due: dueDate}
+		}
 	}
 
 	t.Execute(w, Page{Title: "Todo List", Todos: todoDisplays, Name: Username})
@@ -75,11 +81,17 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 
 func TodoSave(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	time, err := time.Parse(time.RFC3339, r.FormValue("due-date") + "T00:00:00Z")
-	if err != nil {
-		panic(err)
+	name := r.FormValue("name")
+	dueDateRaw := r.FormValue("due-date")
+	if dueDateRaw != "" {
+		dueDate, err := time.Parse(time.RFC3339, dueDateRaw + "T00:00:00Z")
+		if err != nil {
+			panic(err)
+		}
+		InsertTodo(Todo{Name: name, Due: dueDate, Completed: false})
+	} else {
+		InsertTodo(Todo{Name: name, Completed: false})
 	}
-	InsertTodo(Todo{Name: r.FormValue("name"), Due: time, Completed: false})
 	http.Redirect(w, r, "/todos", 301)
 }
 
