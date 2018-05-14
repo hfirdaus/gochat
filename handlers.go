@@ -30,10 +30,6 @@ func Name(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/todos", 301)
 }
 
-type byDate []Todo
-
-
-
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("todos.html")
 	if err != nil {
@@ -43,19 +39,20 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	todos := FindAllTodos()
 
 	sort.Slice(todos, func(i, j int) bool {
-		return todos[i].Due.Before(todos[j].Due)
+		return todos[i].DueDate.Before(todos[j].DueDate)
 	})
 
 	todoDisplays := make([]TodoDisplay, len(todos))
 	for i := 0; i < len(todos); i++ {
-		if todos[i].Due.IsZero() {
-			todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
+		if todos[i].DueDate.IsZero() {
+			todoDisplays[i] = TodoDisplay{	Task:todos[i].Task,
 				ID: todos[i].ID,
-				Completed: todos[i].Completed}
+				Completed: todos[i].Completed,
+				User: todos[i].User}
 		} else {
-			dueDate := todos[i].Due.Format("Mon Jan 2")
+			dueDate := todos[i].DueDate.Format("Mon Jan 2")
 			today := time.Now().Truncate(24*time.Hour)
-			someDay := todos[i].Due.Truncate(24*time.Hour)
+			someDay := todos[i].DueDate.Truncate(24*time.Hour)
 
 			if today.Equal(someDay) {
 				dueDate = "Today"
@@ -68,14 +65,15 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 				dueDate += " (Missed!)"
 			}
 
-			todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
+			todoDisplays[i] = TodoDisplay{	Task:todos[i].Task,
 				ID: todos[i].ID,
 				Completed: todos[i].Completed,
-				Due: dueDate}
+				DueDate: dueDate,
+				User: todos[i].User}
 		}
 	}
 
-	t.Execute(w, Page{Title: "Todo List", Todos: todoDisplays, Name: Username})
+	t.Execute(w, Page{Title: "Todo List", Todos: todoDisplays, CUser: Username})
 }
 
 func TodoCreate(w http.ResponseWriter, r *http.Request) {
@@ -112,9 +110,9 @@ func TodoSave(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		InsertTodo(Todo{Name: name, Due: dueDate, Completed: false})
+		InsertTodo(Todo{Task: name, DueDate: dueDate, User: Username, Completed: false})
 	} else {
-		InsertTodo(Todo{Name: name, Completed: false})
+		InsertTodo(Todo{Task: name, User: Username, Completed: false})
 	}
 	http.Redirect(w, r, "/todos", 301)
 }

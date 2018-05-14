@@ -6,20 +6,22 @@ import (
 
 type Todo struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
+	Task      string    `json:"name"`
 	Completed bool      `json:"completed"`
-	Due       time.Time `json:"due"`
+	DueDate   time.Time `json:"due"`
+	User	  string	`json:"user"`
 }
 
 type TodoDisplay struct {
 	ID        int
-	Name      string
+	Task      string
 	Completed bool
-	Due       string
+	DueDate   string
+	User 	  string
 }
 
 type Page struct {
 	Title	string
 	Todos	[]TodoDisplay
-	Name 	string
+	CUser 	string
 }

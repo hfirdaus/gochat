@@ -51,7 +51,7 @@ var routes = Routes{
 		TodoDelete,
 	},
 	Route{
-		"Name",
+		"Task",
 		"POST",
 		"/name",
 		Name,

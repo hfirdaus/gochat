@@ -15,8 +15,8 @@ func init() {
 
 	if !db.HasTable(&Todo{}) {
 		db.AutoMigrate(&Todo{})
-		InsertTodo(Todo{Name: "Thing 1", Completed: false, Due: time.Now()})
-		InsertTodo(Todo{Name: "Thing 2", Completed: true, Due: time.Now()})
+		InsertTodo(Todo{Task: "Thing 1", Completed: false, DueDate: time.Now(), User: "TestUser"})
+		InsertTodo(Todo{Task: "Thing 2", Completed: true, DueDate: time.Now(), User: "TestUser"})
 	}
 }
 
@@ -56,9 +56,10 @@ func ToggleTodoCompletedValue(Id int) {
 func UpdateTodo(t Todo) {
 	db := openTodoDb()
 	defer db.Close()
-	db.Model(t).Update("Name", t.Name)
+	db.Model(t).Update("Task", t.Task)
 	db.Model(t).Update("Completed", t.Completed)
-	db.Model(t).Update("Due", t.Due)
+	db.Model(t).Update("DueDate", t.DueDate)
+	db.Model(t).Update("User", t.User)
 }
 
 func FindTodoById(Id int) Todo {
