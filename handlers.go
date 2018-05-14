@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"io"
-	"github.com/gorilla/mux"
 	"html/template"
 	"time"
 	"strconv"
@@ -22,7 +21,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	t.Execute(w, Page{Title: "Home"})
+}
 
+func Name(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	Username = r.FormValue("username")
+	http.Redirect(w, r, "/todos", 301)
 }
 
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
@@ -30,13 +34,18 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	t.Execute(w, Page{Title: "Todo List", Todos: FindAllTodos()})
-}
 
-func TodoShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	todoId := vars["todoId"]
-	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", todoId, todoId)
+	todos := FindAllTodos()
+	todoDisplays := make([]TodoDisplay, len(todos))
+	for i := 0; i < len(todos); i++ {
+		dueDate := todos[i].Due.Format("Mon Jan 2")
+		todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
+										ID: todos[i].ID,
+										Completed: todos[i].Completed,
+										Due: dueDate}
+	}
+
+	t.Execute(w, Page{Title: "Todo List", Todos: todoDisplays, Name: Username})
 }
 
 func TodoCreate(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +80,7 @@ func TodoSave(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	InsertTodo(Todo{Name: r.FormValue("name"), Due: time, Completed: false})
-	TodoIndex(w, r)
+	http.Redirect(w, r, "/todos", 301)
 }
 
 func TodoComplete(w http.ResponseWriter, r *http.Request) {
@@ -82,6 +91,7 @@ func TodoComplete(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	ToggleTodoCompletedValue(id)
+	http.Redirect(w, r, "/todos", 301)
 }
 
 func TodoDelete(w http.ResponseWriter, r *http.Request) {
@@ -92,4 +102,5 @@ func TodoDelete(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	DeleteTodoById(id)
+	http.Redirect(w, r, "/todos", 301)
 }

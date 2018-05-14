@@ -26,18 +26,22 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            font-size: 12px;
+            font-family: sans-serif;
         }
         #list ul li {
             padding: 5px;
             background: white;
             margin-bottom: 10px;
+            cursor: move;
         }
         .completed {
             color: lightgrey;
         }
-        .form-button {
+        .list-right {
             display: inline;
             float: right;
+            padding-left: 5px;
         }
     </style>
     <script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
@@ -45,7 +49,8 @@
 </head>
 <body>
 <div id="add-task">
-<form action="/todos" method="POST">
+Welcome back{{if .Name}}, {{.Name}}{{else}}{{end}}!
+<form action="/save" method="POST">
     <input id="task-input" name="name" type="text" placeholder="Enter new task here...">
     <input name="due-date" type="date" placeholder="dd/mm/yyyy">
     <input value="Add this task" type="submit">
@@ -57,15 +62,16 @@
         {{range .Todos}}
             {{if .Completed}}
             {{else}}
-                <li>{{.Name}} {{.Due}}
-                    <form class="form-button" method="POST" action="/complete">
-                        <input type="hidden" name="id" value={{.ID}}>
-                        <button type="submit"><i class="fas fa-check"></i></button>
-                    </form>
-                    <form class="form-button" method="POST" action="/delete">
+                <li>{{.Name}}
+                    <form class="list-right" method="POST" action="/delete">
                         <input type="hidden" name="id" value={{.ID}}>
                         <button type="submit"><i class="fas fa-times"></i></button>
                     </form>
+                    <form class="list-right" method="POST" action="/complete">
+                        <input type="hidden" name="id" value={{.ID}}>
+                        <button type="submit"><i class="fas fa-check"></i></button>
+                    </form>
+                    <div class="list-right">{{.Due}}</div>
                 </li>
             {{end}}
         {{end}}
@@ -73,11 +79,16 @@
     <ul class="listul">
         {{range .Todos}}
             {{if .Completed}}
-                <li class="completed">{{.Name}} {{.Due}}
-                    <form class="form-button" method="POST" action="/delete">
+                <li class="completed">{{.Name}}
+                     <form class="list-right" method="POST" action="/delete">
+                         <input type="hidden" name="id" value={{.ID}}>
+                         <button type="submit"><i class="fas fa-times"></i></button>
+                     </form>
+                    <form class="list-right" method="POST" action="/complete">
                         <input type="hidden" name="id" value={{.ID}}>
-                        <button type="submit"><i class="fas fa-times"></i></button>
-                    </form>                                                        
+                        <button type="submit"><i class="fas fa-plus"></i></button>
+                    </form>
+                     <div class="list-right">{{.Due}}</div>
                 </li>
             {{end}}
         {{end}}
