@@ -44,6 +44,20 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 				Completed: todos[i].Completed}
 		} else {
 			dueDate := todos[i].Due.Format("Mon Jan 2")
+			today := time.Now().Truncate(24*time.Hour)
+			someDay := todos[i].Due.Truncate(24*time.Hour)
+
+			if today.Equal(someDay) {
+				dueDate = "Today"
+			} else if today.Add(24*time.Hour).Equal(someDay) {
+				dueDate = "Tomorrow"
+			} else if someDay.Add(24*time.Hour).Equal(today) {
+				dueDate = "Yesterday"
+			}
+			if someDay.Before(today) && !todos[i].Completed {
+				dueDate += " (Missed!)"
+			}
+
 			todoDisplays[i] = TodoDisplay{	Name:todos[i].Name,
 				ID: todos[i].ID,
 				Completed: todos[i].Completed,
