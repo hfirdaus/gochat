@@ -33,7 +33,6 @@
             padding: 5px;
             background: white;
             margin-bottom: 10px;
-            cursor: move;
         }
         .completed {
             color: lightgrey;
@@ -44,7 +43,6 @@
             padding-left: 5px;
         }
     </style>
-    <script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
@@ -94,12 +92,5 @@ Welcome back{{if .Name}}, {{.Name}}{{else}}{{end}}!
         {{end}}
     </ul>
 </div>
-
-<script language="JavaScript">
-    var lists = document.getElementsByClassName("listul");
-    for (var i = 0; i < lists.length; i++) {
-        Sortable.create(lists[i]);
-    }
-</script>
 </body>
 </html>

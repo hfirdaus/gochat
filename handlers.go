@@ -9,6 +9,7 @@ import (
 	"html/template"
 	"time"
 	"strconv"
+	"sort"
 )
 
 // https://golang.org/doc/articles/wiki/
@@ -29,6 +30,10 @@ func Name(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/todos", 301)
 }
 
+type byDate []Todo
+
+
+
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("todos.html")
 	if err != nil {
@@ -36,6 +41,11 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	todos := FindAllTodos()
+
+	sort.Slice(todos, func(i, j int) bool {
+		return todos[i].Due.Before(todos[j].Due)
+	})
+
 	todoDisplays := make([]TodoDisplay, len(todos))
 	for i := 0; i < len(todos); i++ {
 		if todos[i].Due.IsZero() {
