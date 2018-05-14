@@ -10,4 +10,8 @@ Done:
  - Delete a task
  - Complete/Uncomplete a task
  - Login with name
- - Sort tasks
+ - Tasks sorted by date
+ - Missed tasks marked
+ - Dates contextualized, Yesterday, Today, Tomorrow
+ - User that created task also saved with task, and now visible on list
+ - Tasks without due dates can be added
