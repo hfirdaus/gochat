@@ -57,9 +57,7 @@ func UpdateTodo(t Todo) {
 	db := openTodoDb()
 	defer db.Close()
 	db.Model(t).Update("Task", t.Task)
-	db.Model(t).Update("Completed", t.Completed)
 	db.Model(t).Update("DueDate", t.DueDate)
-	db.Model(t).Update("User", t.User)
 }
 
 func FindTodoById(Id int) Todo {

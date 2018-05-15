@@ -15,6 +15,7 @@ import (
 // https://golang.org/doc/articles/wiki/
 // for later: https://scotch.io/bar-talk/build-a-realtime-chat-server-with-go-and-websockets
 // https://astaxie.gitbooks.io/build-web-application-with-golang/en/04.1.html
+// https://curtisvermeeren.github.io/2017/09/14/Golang-Templates-Cheatsheet
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("home.html")
