@@ -18,7 +18,7 @@ import (
 // https://curtisvermeeren.github.io/2017/09/14/Golang-Templates-Cheatsheet
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("home.html")
+	t, err := template.ParseFiles("index.html")
 	if err != nil {
 		panic(err)
 	}

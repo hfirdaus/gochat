@@ -84,7 +84,7 @@ Welcome back{{if .CUser}}, {{.CUser}}{{else}}{{end}}!
     <ul class="listul">
         {{range .Todos}}
             {{if .Completed}}
-                <li class="completed">{{.Task}}, {{.User}}
+                <li class="completed">{{.Task}}
                      <form class="list-right" method="POST" action="/delete">
                          <input type="hidden" name="id" value={{.ID}}>
                          <button type="submit"><i class="fas fa-times"></i></button>
