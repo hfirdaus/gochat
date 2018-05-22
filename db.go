@@ -21,7 +21,10 @@ func init() {
 }
 
 func openTodoDb() *gorm.DB {
-	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=postgres password=postgres sslmode=disable")
+//	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=postgres password=postgres sslmode=disable")
+	db, err := gorm.Open("postgres", "host=tantor.db.elephantsql.com port=5432 user=yvrvqewb dbname=yvrvqewb password=sf95rtFPhXxvO8-Ag9T-fXJhZdRbRWL3 sslmode=disable")
+//	url, err := pq.ParseURL("postgres://yvrvqewb:0AuSTPldgCKiL9m8sa8VSP46Et65noQP@tantor.db.elephantsql.com:5432/yvrvqew?sslmode=disable")
+//	db, err := gorm.Open("postgres", url)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -51,7 +54,6 @@ func ToggleTodoCompletedValue(Id int) {
 	db.First(&todo, Id)
 	db.Model(todo).Update("Completed", !todo.Completed)
 }
-
 
 func UpdateTodo(t Todo) {
 	db := openTodoDb()

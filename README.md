@@ -12,6 +12,6 @@ Done:
  - Login with name
  - Tasks sorted by date
  - Missed tasks marked
- - Dates contextualized, Yesterday, Today, Tomorrow
+ - Dates contextualized: Yesterday, Today, Tomorrow, (Missed!)
  - User that created task also saved with task, and now visible on list
  - Tasks without due dates can be added
