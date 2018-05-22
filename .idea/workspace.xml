@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffa4fa8-8741-4102-b3e7-356101d0029d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,8 +72,8 @@
       <file leaf-file-name="db.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/db.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            <state relative-caret-position="107">
+              <caret line="26" column="91" selection-start-line="26" selection-start-column="91" selection-end-line="26" selection-end-column="91" />
               <folding>
                 <element signature="e#14#132#0" expanded="true" />
               </folding>
@@ -84,7 +84,7 @@
       <file leaf-file-name="vendor.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/vendor.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
+            <state relative-caret-position="315">
               <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
             </state>
           </provider>
@@ -93,11 +93,20 @@
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="105">
+              <caret line="7" column="49" lean-forward="true" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
               <folding>
                 <element signature="e#14#43#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="153" selection-start-column="153" selection-end-column="153" />
             </state>
           </provider>
         </entry>
@@ -169,6 +178,7 @@
         <option value="$PROJECT_DIR$/todos.html" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/vendor/vendor.json" />
+        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/db.go" />
       </list>
     </option>
@@ -182,10 +192,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="25" />
     <option name="width" value="1280" />
-    <option name="height" value="707" />
+    <option name="height" value="698" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -292,24 +302,24 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go install" />
+        <item itemvalue="Go Build.go build main.go (2)" />
         <item itemvalue="Go Build.go build todo.go" />
         <item itemvalue="Go Build.go build wiki.go (1)" />
         <item itemvalue="Go Build.go build wiki.go" />
-        <item itemvalue="Go Build.go build main.go (2)" />
       </list>
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1280" height="698" extended-state="6" />
+    <frame x="0" y="25" width="1280" height="698" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2625202" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2625202" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" visible="true" weight="0.327787" />
       <window_info anchor="right" id="Database" order="3" weight="0.32956383" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.327787" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.327787" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49919224" weight="0.3409836" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -338,13 +348,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/todo.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chat/db.go" />
     <entry file="file://$PROJECT_DIR$/handlers.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -545,27 +548,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/vendor.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="105">
+          <caret line="7" column="49" lean-forward="true" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
           <folding>
             <element signature="e#14#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="153" selection-start-column="153" selection-end-column="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/vendor.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/db.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="107">
+          <caret line="26" column="91" selection-start-line="26" selection-start-column="91" selection-end-line="26" selection-end-column="91" />
           <folding>
             <element signature="e#14#132#0" expanded="true" />
           </folding>
