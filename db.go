@@ -5,6 +5,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"fmt"
 	"time"
+	"github.com/lib/pq"
 )
 
 // Reference: https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb
@@ -22,9 +23,9 @@ func init() {
 
 func openTodoDb() *gorm.DB {
 //	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=postgres password=postgres sslmode=disable")
-	db, err := gorm.Open("postgres", "host=tantor.db.elephantsql.com port=5432 user=yvrvqewb dbname=yvrvqewb password=sf95rtFPhXxvO8-Ag9T-fXJhZdRbRWL3 sslmode=disable")
-//	url, err := pq.ParseURL("postgres://yvrvqewb:0AuSTPldgCKiL9m8sa8VSP46Et65noQP@tantor.db.elephantsql.com:5432/yvrvqew?sslmode=disable")
-//	db, err := gorm.Open("postgres", url)
+//	db, err := gorm.Open("postgres", "host=tantor.db.elephantsql.com port=5432 user=yvrvqewb dbname=yvrvqewb password=sf95rtFPhXxvO8-Ag9T-fXJhZdRbRWL3 sslmode=disable")
+	url, err := pq.ParseURL("postgres://mfcxfcekxkoied:0725ab75b1bac8d58ec9275d7f44c9f92ccddd9492f8b931d6d860012b526188@ec2-54-235-132-202.compute-1.amazonaws.com:5432/dcifucdgknmloa")
+	db, err := gorm.Open("postgres", url)
 	if err != nil {
 		fmt.Println(err)
 	}
